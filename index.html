@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local News - Bankstown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .news-slider {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .news-track {
+            display: flex;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+        }
+
+        .news-card {
+            min-width: 100%;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-1 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .card-2 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        .card-3 { background: linear-gradient(135deg, #d299c2, #fef9d7); }
+        .card-4 { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+        .card-5 { background: linear-gradient(135deg, #fdbb2d, #22c1c3); }
+        .card-6 { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+        .card-7 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        .card-8 { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+        .card-9 { background: linear-gradient(135deg, #fdcbf1, #e6dee9); }
+        .card-10 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .card-11 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        .card-12 { background: linear-gradient(135deg, #ff8a80, #ffccbc); }
+        .card-13 { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+        .card-14 { background: linear-gradient(135deg, #cfd9df, #e2ebf0); }
+        .card-15 { background: linear-gradient(135deg, #ffeaa7, #fab1a0); }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .suburb-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(0,0,0,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .story-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3436;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .story-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .story-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .story-meta {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .kate-signature {
+            font-size: 12px;
+            color: rgba(0,0,0,0.6);
+            font-style: italic;
+        }
+
+        .timestamp {
+            font-size: 11px;
+            color: rgba(0,0,0,0.5);
+            margin-top: 5px;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .swipe-hint {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .news-slider {
+                max-width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .story-title {
+                font-size: 22px;
+            }
+            
+            .story-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="news-slider">
+            <div class="news-track" id="newsTrack">
+                <!-- Story 1 -->
+                <div class="news-card card-1">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Traffic chaos on Smith Street after water main burst</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Honestly, it's been a nightmare getting through Smith Street today. A massive water main burst early this morning has turned the usual morning commute into a proper headache. The road's completely flooded between Canterbury Road and Chapel Street, and Sydney Water crews are working flat out to fix it. They're saying it could take until tomorrow to get everything back to normal. If you're heading through Bankstown today, definitely take the long way around via Restwell Street.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">2 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="news-card card-2">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">New playground finally opens at Paul Keating Park</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            The kids are going to love this! After months of construction noise and dust, the brand new playground at Paul Keating Park is finally open. I took a walk through this morning and it looks fantastic - they've got these amazing climbing frames, new swings, and even a little water play area. Council's done a really good job with this one. The old playground was getting pretty tired, so it's great to see families already making the most of the new space. Perfect timing for the school holidays too.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">4 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="news-card card-3">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Bankstown Sports Club hosting job fair next week</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Job hunters, this one's for you! Bankstown Sports Club is hosting a massive job fair next Thursday from 10am to 4pm. I've heard there'll be over 30 local employers there, including some big names like Woolworths, Bunnings, and a bunch of healthcare providers. It's completely free to attend and they're looking for everything from part-time retail to full-time trades. Worth checking out if you're on the hunt for work or just want to see what's out there. No need to book, just rock up.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">6 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 4 -->
+                <div class="news-card card-4">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Local café wins award for best coffee in Canterbury-Bankstown</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            We've got bragging rights now! Little Bird Café on North Terrace just won the best coffee award for the whole Canterbury-Bankstown area. I'm not surprised - their flat whites are seriously good, and the owner Maria always remembers exactly how you like your coffee. It's one of those proper local gems that makes you feel like you're part of the community. They're celebrating with 20% off all coffee this week, so it's the perfect excuse to pop in and try what all the fuss is about.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">8 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 5 -->
+                <div class="news-card card-5">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Bus route changes coming to Bankstown next month</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Heads up commuters - there are some bus route changes coming our way from next month. The 901 route is getting extended to include stops at the new shopping development, which is actually pretty handy. But they're also reducing some evening services on the 900 route, which is a bit annoying if you rely on it for late shifts. Transport NSW says it's all about "optimizing services," but honestly, I think they just want to save money. Check their website for the full details if you're a regular bus user.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">10 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 6 -->
+                <div class="news-card card-6">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Community garden project needs volunteers</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Here's something lovely - the Bankstown Community Garden is looking for more volunteers to help with their weekend working bees. They've got this brilliant setup behind the library where locals can grow their own veggies and flowers. It's such a nice way to meet neighbors and get your hands dirty in a good way. They meet every Saturday morning from 9am, and they provide all the tools and morning tea. No gardening experience needed - just enthusiasm and maybe a sun hat!
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">12 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 7 -->
+                <div class="news-card card-7">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">New medical center opens on Chapel Street</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Finally! We've got a new medical center opening on Chapel Street next to the pharmacy. It's been in the works for ages, but they're officially taking bookings now. They've got bulk-billing GPs, a nurse practitioner, and even a mental health counselor on staff. The building looks really modern and accessible too, which is great for older residents. Dr. Amanda Chen from the old practice on Rickard Road is moving over there, so if you're one of her patients, you'll know where to find her.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">14 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 8 -->
+                <div class="news-card card-8">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Street parking meters broken on Marion Street</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Good news for your wallet, but probably not for long - three of the parking meters on Marion Street are completely broken. I noticed them this morning when I was getting my car serviced. The screens are just blank and they're not taking coins or cards. Council's put up temporary signs saying "meter out of order" but no word on when they'll be fixed. Enjoy the free parking while it lasts, but don't be surprised if you come back to find shiny new meters in their place soon.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">16 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 9 -->
+                <div class="news-card card-9">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Local high school's drama club wins regional competition</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            So proud of our local kids! Bankstown High School's drama club just won first place at the regional schools competition with their production of "The Tempest." I heard they beat 15 other schools, including some pretty fancy private ones. The performance was apparently incredible - these kids have been rehearsing for months. They're now heading to the state finals in July. It's so good to see young people in Bankstown getting recognition for their creativity and hard work. The whole community should be cheering them on.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">18 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 10 -->
+                <div class="news-card card-10">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Weekend markets expanding to include food trucks</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            The Saturday markets at Bankstown Park are getting a serious upgrade! From this weekend, they're adding a whole row of food trucks alongside the usual fruit and veg stalls. I've heard there's going to be everything from Korean BBQ to gourmet burgers. The market organizers say they want to make it more of a family destination, not just a quick grocery run. With the new playground nearby, it could actually become a proper weekend hangout spot. About time too - the markets have been pretty quiet lately.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">20 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 11 -->
+                <div class="news-card card-11">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Free tax help sessions at the library</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Tax time is coming up fast, and Bankstown Library is offering free tax help sessions every Wednesday in June. It's run by qualified accountants who volunteer their time to help people with basic tax returns. You need to book ahead though - apparently last year they were booked out within days. It's perfect if you've got a straightforward tax situation but just need someone to walk you through the online process. Way better than paying $200 to an accountant for something you can probably do yourself with a bit of guidance.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">22 hours ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 12 -->
+                <div class="news-card card-12">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Old cinema building to become community arts center</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Remember the old Bankstown Cinema that's been empty for years? Well, it's getting a new lease on life as a community arts center! Council just announced they've secured funding to convert it into studios, a small theater, and exhibition space. The original art deco facade will be preserved, which is fantastic - it's such a beautiful building. They're aiming to have it open by next year. It's exactly what Bankstown needs - a proper cultural hub where local artists can showcase their work and run workshops.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 13 -->
+                <div class="news-card card-13">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Speed camera catches 200 drivers in first week</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Yikes! That new speed camera on Canterbury Road has been busy - it caught over 200 speeding drivers in its first week alone. I guess people haven't quite adjusted to the new 40km/h school zone limit yet. The fines are pretty hefty too, starting at $130 for just 10km/h over the limit. Look, I get that everyone's in a rush, but with three schools nearby, it makes sense to slow down. Word of advice: stick to 40 through there, especially during school hours. Your wallet will thank you.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 14 -->
+                <div class="news-card card-14">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Local swim school closes after 25 years</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            It's the end of an era - Bankstown Swim School is closing its doors after 25 years. Rising rent and pool maintenance costs have made it impossible for the family-run business to continue. So many local kids learned to swim there, including my nephew. The owners, John and Sue, are absolutely heartbroken but say they just can't make the numbers work anymore. They're helping families find alternative swim schools in the area, but it won't be the same. Another piece of local history gone.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 15 -->
+                <div class="news-card card-15">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Council installing new bike path along Georges River</h1>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Great news for cyclists and walkers! Council is finally installing a proper bike path along the Georges River from Bankstown to Milperra. It's been talked about for years, but construction is actually starting next month. The path will be separated from the main walkway, which should make it safer for everyone. It's part of a bigger plan to connect all the river paths in the area. Once it's done, you'll be able to cycle or walk along the water for kilometers without dodging cars. Can't wait to see it finished!
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <div class="nav-dot active" data-slide="0"></div>
+                <div class="nav-dot" data-slide="1"></div>
+                <div class="nav-dot" data-slide="2"></div>
+                <div class="nav-dot" data-slide="3"></div>
+                <div class="nav-dot" data-slide="4"></div>
+                <div class="nav-dot" data-slide="5"></div>
+                <div class="nav-dot" data-slide="6"></div>
+                <div class="nav-dot" data-slide="7"></div>
+                <div class="nav-dot" data-slide="8"></div>
+                <div class="nav-dot" data-slide="9"></div>
+                <div class="nav-dot" data-slide="10"></div>
+                <div class="nav-dot" data-slide="11"></div>
+                <div class="nav-dot" data-slide="12"></div>
+                <div class="nav-dot" data-slide="13"></div>
+                <div class="nav-dot" data-slide="14"></div>
+            </div>
+
+            <div class="swipe-hint">swipe</div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 15;
+        const track = document.getElementById('newsTrack');
+        const dots = document.querySelectorAll('.nav-dot');
+        
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Touch events for mobile
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50;
+            
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        });
+
+        // Mouse events for desktop
+        track.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX;
+        });
+
+        track.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            const threshold = 50;
+            
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+            });
+        });
+
+        // Auto-advance (optional - remove if you don't want this)
+        // setInterval(nextSlide, 10000); // Change slide every 10 seconds
+    </script>
+</body>
+</html>
