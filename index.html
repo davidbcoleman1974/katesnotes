@@ -474,9 +474,9 @@
         const dots = document.querySelectorAll('.nav-dot');
         const slider = document.querySelector('.news-slider');
         
-        let startX = 0;
-        let startY = 0;
-        let isDragging = false;
+        // Simple touch tracking
+        let touchStartX = null;
+        let touchStartY = null;
 
         function updateSlider() {
             const translateValue = -(currentSlide * (100 / totalSlides));
@@ -504,95 +504,59 @@
             updateSlider();
         }
 
-        // Touch events for mobile
-        slider.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            isDragging = false;
-        }, { passive: true });
+        // Simplified touch handling - more reliable
+        slider.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
 
-        slider.addEventListener('touchmove', (e) => {
-            if (!startX) return;
-            
-            const touch = e.touches[0];
-            const currentX = touch.clientX;
-            const currentY = touch.clientY;
-            
-            const diffX = Math.abs(currentX - startX);
-            const diffY = Math.abs(currentY - startY);
-            
-            // Determine if this is a horizontal swipe
-            if (diffX > diffY && diffX > 10) {
-                isDragging = true;
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        slider.addEventListener('touchend', (e) => {
-            if (!startX || !isDragging) {
-                startX = 0;
-                startY = 0;
-                isDragging = false;
+        slider.addEventListener('touchend', function(e) {
+            if (touchStartX === null || touchStartY === null) {
                 return;
             }
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
             
-            const touch = e.changedTouches[0];
-            const endX = touch.clientX;
-            const diffX = startX - endX;
-            const threshold = 50;
+            let diffX = touchStartX - touchEndX;
+            let diffY = Math.abs(touchStartY - touchEndY);
             
-            if (Math.abs(diffX) > threshold) {
+            // Only trigger if horizontal swipe is significant and more than vertical movement
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > diffY) {
                 if (diffX > 0) {
+                    // Swiped left - go to next slide
                     nextSlide();
                 } else {
+                    // Swiped right - go to previous slide
                     prevSlide();
                 }
             }
             
-            // Reset
-            startX = 0;
-            startY = 0;
-            isDragging = false;
-        }, { passive: true });
+            // Reset values
+            touchStartX = null;
+            touchStartY = null;
+        });
 
-        // Prevent stuck state on touch cancel
-        slider.addEventListener('touchcancel', () => {
-            startX = 0;
-            startY = 0;
-            isDragging = false;
-        }, { passive: true });
+        // Reset on touch cancel
+        slider.addEventListener('touchcancel', function() {
+            touchStartX = null;
+            touchStartY = null;
+        });
 
         // Mouse events for desktop
-        let mouseStartX = 0;
-        let mouseIsDragging = false;
+        let mouseStartX = null;
 
-        slider.addEventListener('mousedown', (e) => {
+        slider.addEventListener('mousedown', function(e) {
             mouseStartX = e.clientX;
-            mouseIsDragging = false;
             e.preventDefault();
         });
 
-        slider.addEventListener('mousemove', (e) => {
-            if (!mouseStartX) return;
+        document.addEventListener('mouseup', function(e) {
+            if (mouseStartX === null) return;
             
-            const diffX = Math.abs(e.clientX - mouseStartX);
-            if (diffX > 10) {
-                mouseIsDragging = true;
-            }
-        });
-
-        slider.addEventListener('mouseup', (e) => {
-            if (!mouseStartX || !mouseIsDragging) {
-                mouseStartX = 0;
-                mouseIsDragging = false;
-                return;
-            }
+            let diffX = mouseStartX - e.clientX;
             
-            const diffX = mouseStartX - e.clientX;
-            const threshold = 50;
-            
-            if (Math.abs(diffX) > threshold) {
+            if (Math.abs(diffX) > 50) {
                 if (diffX > 0) {
                     nextSlide();
                 } else {
@@ -600,12 +564,11 @@
                 }
             }
             
-            mouseStartX = 0;
-            mouseIsDragging = false;
+            mouseStartX = null;
         });
 
         // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
             } else if (e.key === 'ArrowRight') {
@@ -614,8 +577,8 @@
         });
 
         // Dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
+        dots.forEach(function(dot, index) {
+            dot.addEventListener('click', function() {
                 goToSlide(index);
             });
         });
