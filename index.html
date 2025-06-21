@@ -16,6 +16,12 @@
             background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
             min-height: 100vh;
             overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .container {
@@ -35,16 +41,18 @@
             overflow: hidden;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            touch-action: pan-y pinch-zoom;
         }
 
         .news-track {
             display: flex;
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             height: 100%;
+            width: 1500%; /* 15 slides * 100% */
         }
 
         .news-card {
-            min-width: 100%;
+            min-width: 6.666%; /* 100% / 15 slides */
             height: 100%;
             padding: 30px;
             display: flex;
@@ -464,57 +472,92 @@
         const totalSlides = 15;
         const track = document.getElementById('newsTrack');
         const dots = document.querySelectorAll('.nav-dot');
+        const slider = document.querySelector('.news-slider');
         
         let startX = 0;
+        let startY = 0;
         let currentX = 0;
+        let currentY = 0;
         let isDragging = false;
+        let isTransitioning = false;
 
         function updateSlider() {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            const translateValue = -(currentSlide * (100 / totalSlides));
+            track.style.transform = `translateX(${translateValue}%)`;
             
             // Update dots
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
+            
+            // Reset transition flag after animation
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 300);
         }
 
         function nextSlide() {
+            if (isTransitioning) return;
             currentSlide = (currentSlide + 1) % totalSlides;
             updateSlider();
         }
 
         function prevSlide() {
+            if (isTransitioning) return;
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             updateSlider();
         }
 
         function goToSlide(index) {
+            if (isTransitioning || index === currentSlide) return;
             currentSlide = index;
             updateSlider();
         }
 
-        // Touch events for mobile
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
+        // Touch events for mobile - using passive: false to prevent default
+        slider.addEventListener('touchstart', (e) => {
+            if (isTransitioning) return;
+            
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
             isDragging = true;
-            // Prevent default to avoid conflicts
-            e.preventDefault();
+            
+            // Disable transition during drag
+            track.style.transition = 'none';
+        }, { passive: true });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDragging || isTransitioning) return;
+            
+            const touch = e.touches[0];
+            currentX = touch.clientX;
+            currentY = touch.clientY;
+            
+            const diffX = Math.abs(currentX - startX);
+            const diffY = Math.abs(currentY - startY);
+            
+            // Only prevent default if horizontal swipe is dominant
+            if (diffX > diffY && diffX > 10) {
+                e.preventDefault();
+            }
         }, { passive: false });
 
-        track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentX = e.touches[0].clientX;
-            // Prevent scrolling during swipe
-            e.preventDefault();
-        }, { passive: false });
-
-        track.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
+        slider.addEventListener('touchend', (e) => {
+            if (!isDragging || isTransitioning) return;
+            
+            // Re-enable transition
+            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             
             const diffX = startX - currentX;
+            const diffY = Math.abs(startY - currentY);
             const threshold = 50;
             
-            if (Math.abs(diffX) > threshold) {
+            // Only trigger slide change if horizontal movement is dominant and exceeds threshold
+            if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
                 if (diffX > 0) {
                     nextSlide();
                 } else {
@@ -525,32 +568,40 @@
             // Reset states
             isDragging = false;
             startX = 0;
+            startY = 0;
             currentX = 0;
-            e.preventDefault();
-        }, { passive: false });
+            currentY = 0;
+        }, { passive: true });
 
-        // Handle touch cancel (when finger leaves screen unexpectedly)
-        track.addEventListener('touchcancel', () => {
+        // Handle touch cancel
+        slider.addEventListener('touchcancel', () => {
+            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             isDragging = false;
             startX = 0;
+            startY = 0;
             currentX = 0;
-        });
+            currentY = 0;
+        }, { passive: true });
 
         // Mouse events for desktop
-        track.addEventListener('mousedown', (e) => {
+        slider.addEventListener('mousedown', (e) => {
+            if (isTransitioning) return;
+            
             startX = e.clientX;
             isDragging = true;
+            track.style.transition = 'none';
             e.preventDefault();
         });
 
-        track.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging || isTransitioning) return;
             currentX = e.clientX;
-            e.preventDefault();
         });
 
-        track.addEventListener('mouseup', (e) => {
-            if (!isDragging) return;
+        document.addEventListener('mouseup', (e) => {
+            if (!isDragging || isTransitioning) return;
+            
+            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             
             const diffX = startX - currentX;
             const threshold = 50;
@@ -564,13 +615,6 @@
             }
             
             // Reset states
-            isDragging = false;
-            startX = 0;
-            currentX = 0;
-        });
-
-        // Handle mouse leave (when mouse exits the track area)
-        track.addEventListener('mouseleave', () => {
             isDragging = false;
             startX = 0;
             currentX = 0;
@@ -592,8 +636,8 @@
             });
         });
 
-        // Auto-advance (optional - remove if you don't want this)
-        // setInterval(nextSlide, 10000); // Change slide every 10 seconds
+        // Initialize
+        updateSlider();
     </script>
 </body>
 </html>
