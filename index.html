@@ -82,6 +82,42 @@
         .card-14 { background: linear-gradient(135deg, #cfd9df, #e2ebf0); }
         .card-15 { background: linear-gradient(135deg, #ffeaa7, #fab1a0); }
 
+        .story-icon {
+            font-size: 24px;
+            text-align: center;
+            margin: 8px 0;
+            position: relative;
+            display: inline-block;
+            padding: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 
+                0 2px 8px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .story-icon:hover {
+            transform: translateY(-1px);
+            box-shadow: 
+                0 3px 12px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .story-icon::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
         .card-header {
             text-align: center;
             margin-bottom: 20px;
@@ -236,10 +272,11 @@
                     <div class="card-header">
                         <div class="suburb-name">Revesby</div>
                         <h1 class="story-title">New development application lodged for Marco Avenue shops</h1>
+                        <div class="story-icon">🏗️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            A development application has been lodged for 11, 13, 15 & 17 Marco Avenue in Revesby. The proposal involves refurbishments and alterations to the existing two-storey commercial building to create 5 separate commercial tenancies on ground floor, with improved service areas and a new access stairway. Public comments are due by July 8th.
+                            A development application has been lodged for 11, 13, 15 & 17 Marco Avenue in Revesby. The proposal involves refurbishments and alterations to create 5 separate commercial tenancies on ground floor, with improved service areas. Public comments are due by July 8th.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -253,14 +290,15 @@
                     <div class="card-header">
                         <div class="suburb-name">Revesby Weather</div>
                         <h1 class="story-title">Bureau of Meteorology</h1>
+                        <div class="story-icon">🌤️</div>
                     </div>
                     <div class="story-content">
-                        <p class="story-text">
-                            <strong>Current:</strong> 12°C<br><br>
-                            <strong>Today (Saturday):</strong><br>
+                        <p class="story-text" style="text-align: center;">
+                            <strong>Now:</strong> 12°C<br><br>
+                            <strong>Today:</strong><br>
                             Max: 18°C | Min: 4°C<br>
                             Sunny, morning frost<br><br>
-                            <strong>Tomorrow (Sunday):</strong><br>
+                            <strong>Tomorrow:</strong><br>
                             Max: 19°C | Min: 5°C<br>
                             Sunny, light winds
                         </p>
@@ -274,12 +312,37 @@
                 <!-- Story 3 -->
                 <div class="news-card card-3">
                     <div class="card-header">
+                        <div class="suburb-name">Live Traffic</div>
+                        <h1 class="story-title">Transport for NSW</h1>
+                        <div class="story-icon">🚗</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text" style="text-align: center;">
+                            <strong>Major Routes:</strong><br><br>
+                            <strong>M5 Motorway:</strong><br>
+                            Moderate traffic eastbound<br>
+                            Heavy delays westbound near Airport<br><br>
+                            <strong>Canterbury Road:</strong><br>
+                            Slow traffic both directions<br>
+                            20min delays through Bankstown
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Live Traffic NSW</div>
+                        <div class="timestamp">Updated 2:15pm</div>
+                    </div>
+                </div>
+
+                <!-- Story 4 -->
+                <div class="news-card card-4">
+                    <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Bankstown Sports Club hosting job fair next week</h1>
+                        <div class="story-icon">💼</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown Sports Club is hosting a massive job fair next Thursday, 10am to 4pm. Over 30 local employers including Woolworths, Bunnings, and healthcare providers will be there. It's free to attend and they're looking for everything from retail to trades. Just rock up!
+                            Bankstown Sports Club is hosting a job fair next Thursday, 10am to 4pm. Over 30 local employers including Woolworths, Bunnings, and healthcare providers will be there. It's free to attend and they're looking for everything from retail to trades.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -288,15 +351,16 @@
                     </div>
                 </div>
 
-                <!-- Story 4 -->
-                <div class="news-card card-4">
+                <!-- Story 5 -->
+                <div class="news-card card-5">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Local café wins award for best coffee in Canterbury-Bankstown</h1>
+                        <div class="story-icon">☕</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Little Bird Café on North Terrace just won best coffee in Canterbury-Bankstown! Their flat whites are seriously good and owner Maria always remembers your order. They're celebrating with 20% off all coffee this week - perfect excuse to visit this local gem.
+                            Little Bird Café on North Terrace just won best coffee in Canterbury-Bankstown! Their flat whites are seriously good and owner Maria always remembers your order. They're celebrating with 20% off all coffee this week.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -305,15 +369,16 @@
                     </div>
                 </div>
 
-                <!-- Story 5 -->
-                <div class="news-card card-5">
+                <!-- Story 6 -->
+                <div class="news-card card-6">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Bus route changes coming to Bankstown next month</h1>
+                        <div class="story-icon">🚌</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bus route changes coming next month! The 901 route extends to include new shopping development stops, but evening services on the 900 route are being reduced. Transport NSW calls it "optimizing services" but check their website for full details if you're a regular user.
+                            Bus route changes coming next month! The 901 route extends to include new shopping development stops, but evening services on the 900 route are being reduced. Transport NSW calls it "optimizing services" but check their website for details.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -322,15 +387,16 @@
                     </div>
                 </div>
 
-                <!-- Story 6 -->
-                <div class="news-card card-6">
+                <!-- Story 7 -->
+                <div class="news-card card-7">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Community garden project needs volunteers</h1>
+                        <div class="story-icon">🌱</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown Community Garden needs weekend volunteers! There's a brilliant setup behind the library where locals grow veggies and flowers. They meet every Saturday from 9am, providing tools and morning tea. No experience needed - just enthusiasm and a sun hat!
+                            Bankstown Community Garden needs weekend volunteers! There's a brilliant setup behind the library where locals grow veggies and flowers. They meet every Saturday from 9am, providing tools and morning tea. No experience needed.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -339,15 +405,16 @@
                     </div>
                 </div>
 
-                <!-- Story 7 -->
-                <div class="news-card card-7">
+                <!-- Story 8 -->
+                <div class="news-card card-8">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">New medical center opens on Chapel Street</h1>
+                        <div class="story-icon">🏥</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            New medical center opens on Chapel Street next to the pharmacy! They're taking bookings now with bulk-billing GPs, a nurse practitioner, and mental health counselor. The building is modern and accessible. Dr. Amanda Chen moved there from Rickard Road.
+                            New medical center opens on Chapel Street next to the pharmacy! They're taking bookings now with bulk-billing GPs, a nurse practitioner, and mental health counselor. The building is modern and accessible.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -356,15 +423,16 @@
                     </div>
                 </div>
 
-                <!-- Story 8 -->
-                <div class="news-card card-8">
+                <!-- Story 9 -->
+                <div class="news-card card-9">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Street parking meters broken on Marion Street</h1>
+                        <div class="story-icon">🅿️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Three parking meters on Marion Street are completely broken - screens blank, not taking coins or cards. Council has temporary "meter out of order" signs but no word on repairs. Enjoy the free parking while it lasts!
+                            Three parking meters on Marion Street are completely broken - screens blank, not taking coins or cards. Council has temporary "meter out of order" signs but no word on repairs.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -373,15 +441,16 @@
                     </div>
                 </div>
 
-                <!-- Story 9 -->
-                <div class="news-card card-9">
+                <!-- Story 10 -->
+                <div class="news-card card-10">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Local high school's drama club wins regional competition</h1>
+                        <div class="story-icon">🎭</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown High School's drama club won first place at regionals with "The Tempest," beating 15 other schools including fancy private ones! These kids rehearsed for months and now they're heading to state finals in July. The whole community should be proud.
+                            Bankstown High School's drama club won first place at regionals with "The Tempest," beating 15 other schools including fancy private ones! These kids rehearsed for months and now they're heading to state finals in July.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -390,15 +459,16 @@
                     </div>
                 </div>
 
-                <!-- Story 10 -->
-                <div class="news-card card-10">
+                <!-- Story 11 -->
+                <div class="news-card card-11">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Weekend markets expanding to include food trucks</h1>
+                        <div class="story-icon">🍔</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Saturday markets at Bankstown Park are getting food trucks! From this weekend there's everything from Korean BBQ to gourmet burgers alongside the usual stalls. With the new playground nearby, it could become a proper weekend family hangout spot.
+                            Saturday markets at Bankstown Park are getting food trucks! From this weekend there's everything from Korean BBQ to gourmet burgers alongside the usual stalls. With the new playground nearby, it could become a weekend family hangout.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -407,15 +477,16 @@
                     </div>
                 </div>
 
-                <!-- Story 11 -->
-                <div class="news-card card-11">
+                <!-- Story 12 -->
+                <div class="news-card card-12">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
                         <h1 class="story-title">Free tax help sessions at the library</h1>
+                        <div class="story-icon">📊</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown Library offers free tax help sessions every Wednesday in June. Qualified accountants volunteer to help with basic returns. Book ahead - last year they were fully booked within days. Perfect for straightforward situations needing guidance through the online process.
+                            Bankstown Library offers free tax help sessions every Wednesday in June. Qualified accountants volunteer to help with basic returns. Book ahead - last year they were fully booked within days.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -424,228 +495,8 @@
                     </div>
                 </div>
 
-                <!-- Story 12 -->
-                <div class="news-card card-12">
-                    <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Old cinema building to become community arts center</h1>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            The old Bankstown Cinema is becoming a community arts center! Council secured funding to convert it into studios, a small theater, and exhibition space. The beautiful art deco facade will be preserved. Opens next year - exactly what Bankstown needs.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
-                        <div class="timestamp">1 day ago</div>
-                    </div>
-                </div>
-
                 <!-- Story 13 -->
                 <div class="news-card card-13">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Speed camera catches 200 drivers in first week</h1>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            New speed camera on Canterbury Road caught over 200 drivers in its first week! People haven't adjusted to the 40km/h school zone limit yet. Fines start at $130 for just 10km/h over. Stick to 40 through there, especially during school hours.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
-                        <div class="timestamp">1 day ago</div>
-                    </div>
-                </div>
-
-                <!-- Story 14 -->
-                <div class="news-card card-14">
-                    <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Local swim school closes after 25 years</h1>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            Bankstown Swim School is closing after 25 years. Rising rent and pool maintenance costs made it impossible to continue. So many local kids learned there. Owners John and Sue are heartbroken but helping families find alternative schools. Another piece of local history gone.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
-                        <div class="timestamp">1 day ago</div>
-                    </div>
-                </div>
-
-                <!-- Story 15 -->
-                <div class="news-card card-15">
-                    <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Council installing new bike path along Georges River</h1>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            Council is installing a proper bike path along Georges River from Bankstown to Milperra! Construction starts next month. The path will be separated from the main walkway for safety. Once finished, you'll be able to cycle for kilometers without dodging cars.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
-                        <div class="timestamp">1 day ago</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Navigation arrows for desktop -->
-            <div class="nav-arrows">
-                <button class="nav-arrow prev" id="prevBtn">‹</button>
-            </div>
-            <div class="nav-arrows">
-                <button class="nav-arrow next" id="nextBtn">›</button>
-            </div>
-
-            <div class="navigation">
-                <div class="nav-dot active" data-slide="0"></div>
-                <div class="nav-dot" data-slide="1"></div>
-                <div class="nav-dot" data-slide="2"></div>
-                <div class="nav-dot" data-slide="3"></div>
-                <div class="nav-dot" data-slide="4"></div>
-                <div class="nav-dot" data-slide="5"></div>
-                <div class="nav-dot" data-slide="6"></div>
-                <div class="nav-dot" data-slide="7"></div>
-                <div class="nav-dot" data-slide="8"></div>
-                <div class="nav-dot" data-slide="9"></div>
-                <div class="nav-dot" data-slide="10"></div>
-                <div class="nav-dot" data-slide="11"></div>
-                <div class="nav-dot" data-slide="12"></div>
-                <div class="nav-dot" data-slide="13"></div>
-                <div class="nav-dot" data-slide="14"></div>
-            </div>
-
-            <div class="swipe-hint">swipe</div>
-        </div>
-    </div>
-
-    <script>
-        let currentSlide = 0;
-        const totalSlides = 15;
-        const track = document.getElementById('newsTrack');
-        const dots = document.querySelectorAll('.nav-dot');
-        const slider = document.getElementById('slider');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        function updateSlider() {
-            const translateValue = -(currentSlide * (100 / totalSlides));
-            track.style.transform = `translateX(${translateValue}%)`;
-            
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlider();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-        }
-
-        // Button controls
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        // Touch events for mobile
-        let touchStartX = null;
-        let touchStartY = null;
-
-        slider.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        });
-
-        slider.addEventListener('touchend', function(e) {
-            if (touchStartX === null || touchStartY === null) {
-                return;
-            }
-
-            let touchEndX = e.changedTouches[0].clientX;
-            let touchEndY = e.changedTouches[0].clientY;
-            
-            let diffX = touchStartX - touchEndX;
-            let diffY = Math.abs(touchStartY - touchEndY);
-            
-            if (Math.abs(diffX) > 50 && Math.abs(diffX) > diffY) {
-                if (diffX > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            }
-            
-            touchStartX = null;
-            touchStartY = null;
-        });
-
-        // Mouse drag for desktop
-        let mouseStartX = null;
-        let isDragging = false;
-
-        slider.addEventListener('mousedown', function(e) {
-            mouseStartX = e.clientX;
-            isDragging = false;
-            e.preventDefault();
-        });
-
-        slider.addEventListener('mousemove', function(e) {
-            if (mouseStartX !== null) {
-                isDragging = true;
-            }
-        });
-
-        slider.addEventListener('mouseup', function(e) {
-            if (mouseStartX === null) return;
-            
-            if (isDragging) {
-                let diffX = mouseStartX - e.clientX;
-                
-                if (Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
-                    }
-                }
-            }
-            
-            mouseStartX = null;
-            isDragging = false;
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                prevSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
-        });
-
-        // Dot navigation
-        dots.forEach(function(dot, index) {
-            dot.addEventListener('click', function() {
-                goToSlide(index);
-            });
-        });
-
-        // Initialize
-        updateSlider();
-    </script>
-</body>
-</html>
+                        <h1 class="story-title">Old cinema building to b
