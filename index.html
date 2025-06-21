@@ -497,16 +497,19 @@
         track.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             isDragging = true;
-        });
+            // Prevent default to avoid conflicts
+            e.preventDefault();
+        }, { passive: false });
 
         track.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             currentX = e.touches[0].clientX;
-        });
+            // Prevent scrolling during swipe
+            e.preventDefault();
+        }, { passive: false });
 
-        track.addEventListener('touchend', () => {
+        track.addEventListener('touchend', (e) => {
             if (!isDragging) return;
-            isDragging = false;
             
             const diffX = startX - currentX;
             const threshold = 50;
@@ -518,6 +521,19 @@
                     prevSlide();
                 }
             }
+            
+            // Reset states
+            isDragging = false;
+            startX = 0;
+            currentX = 0;
+            e.preventDefault();
+        }, { passive: false });
+
+        // Handle touch cancel (when finger leaves screen unexpectedly)
+        track.addEventListener('touchcancel', () => {
+            isDragging = false;
+            startX = 0;
+            currentX = 0;
         });
 
         // Mouse events for desktop
@@ -530,11 +546,11 @@
         track.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             currentX = e.clientX;
+            e.preventDefault();
         });
 
-        track.addEventListener('mouseup', () => {
+        track.addEventListener('mouseup', (e) => {
             if (!isDragging) return;
-            isDragging = false;
             
             const diffX = startX - currentX;
             const threshold = 50;
@@ -546,6 +562,18 @@
                     prevSlide();
                 }
             }
+            
+            // Reset states
+            isDragging = false;
+            startX = 0;
+            currentX = 0;
+        });
+
+        // Handle mouse leave (when mouse exits the track area)
+        track.addEventListener('mouseleave', () => {
+            isDragging = false;
+            startX = 0;
+            currentX = 0;
         });
 
         // Keyboard navigation
