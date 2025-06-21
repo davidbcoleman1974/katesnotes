@@ -661,6 +661,30 @@
         let startX = 0;
         let isDragging = false;
 
+        // Dynamic font sizing for mobile
+        function adjustMobileFontSizes() {
+            if (window.innerWidth <= 480) {
+                const storyTexts = document.querySelectorAll('.story-text');
+                storyTexts.forEach(textElement => {
+                    const wordCount = textElement.textContent.trim().split(/\s+/).length;
+                    let fontSize;
+                    
+                    // Adjust font size based on word count
+                    if (wordCount <= 30) {
+                        fontSize = 28; // Short text - larger font
+                    } else if (wordCount <= 45) {
+                        fontSize = 25; // Medium text
+                    } else if (wordCount <= 60) {
+                        fontSize = 22; // Longer text
+                    } else {
+                        fontSize = 19; // Very long text - smaller font
+                    }
+                    
+                    textElement.style.fontSize = fontSize + 'px';
+                });
+            }
+        }
+
         // Generate navigation dots
         function generateDots() {
             const navigation = document.getElementById('navigation');
