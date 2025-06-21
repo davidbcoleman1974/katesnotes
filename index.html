@@ -170,65 +170,17 @@
 
         .kate-logo {
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: 5px;
+            right: 15px;
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(0,0,0,0.7);
             letter-spacing: 0.3px;
-            animation: subtleGradientShift 4s ease-in-out infinite;
-            opacity: 0.9;
             text-transform: lowercase;
-            position: relative;
             text-align: right;
             line-height: 1.1;
-        }
-
-        /* Mobile fallback for logo */
-        @supports not (background-clip: text) or not (-webkit-background-clip: text) {
-            .kate-logo {
-                background: none;
-                -webkit-text-fill-color: initial;
-                color: rgba(0,0,0,0.7);
-                font-weight: 500;
-            }
-        }
-
-        /* Additional mobile-specific styles */
-        @media (max-width: 480px) {
-            .kate-logo {
-                font-size: 12px;
-                right: 15px;
-                bottom: 5px;
-                /* Fallback color for mobile if gradient fails */
-                color: rgba(0,0,0,0.7);
-            }
-            
-            /* Ensure logo shows even if gradient doesn't work */
-            .kate-logo {
-                background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-                background-size: 200% 200%;
-                -webkit-background-clip: text;
-                background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            
-            /* Ultimate fallback */
-            .kate-logo::after {
-                content: attr(data-text);
-                position: absolute;
-                top: 0;
-                left: 0;
-                color: rgba(0,0,0,0.7);
-                background: none;
-                -webkit-text-fill-color: initial;
-                z-index: -1;
-            }
+            z-index: 10;
         }
 
         .kate-logo::before {
