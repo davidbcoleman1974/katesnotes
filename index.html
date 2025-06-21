@@ -292,6 +292,12 @@
             opacity: 0.8;
         }
 
+        @media (min-width: 481px) {
+            .story-title {
+                font-size: 28px;
+            }
+        }
+
         @media (max-width: 480px) {
             .news-slider {
                 max-width: 100%;
@@ -313,7 +319,7 @@
             }
             
             .story-title {
-                font-size: 24px !important;
+                font-size: 30px;
                 margin-bottom: 10px;
                 line-height: 1.1;
             }
@@ -663,8 +669,9 @@
 
         // Dynamic font sizing for mobile
         function adjustMobileFontSizes() {
+            const storyTexts = document.querySelectorAll('.story-text');
+            
             if (window.innerWidth <= 480) {
-                const storyTexts = document.querySelectorAll('.story-text');
                 storyTexts.forEach(textElement => {
                     const wordCount = textElement.textContent.trim().split(/\s+/).length;
                     let fontSize;
@@ -681,6 +688,11 @@
                     }
                     
                     textElement.style.fontSize = fontSize + 'px';
+                });
+            } else {
+                // Reset to original desktop size
+                storyTexts.forEach(textElement => {
+                    textElement.style.fontSize = '18px';
                 });
             }
         }
@@ -786,6 +798,10 @@
         // Initialize
         generateDots();
         updateSlide();
+        adjustMobileFontSizes();
+        
+        // Adjust font sizes on window resize
+        window.addEventListener('resize', adjustMobileFontSizes);
     </script>
 </body>
 </html>
