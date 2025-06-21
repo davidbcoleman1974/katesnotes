@@ -155,21 +155,78 @@
         }
 
         .story-meta {
-            text-align: center;
+            position: relative;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .kate-signature {
-            font-size: 12px;
-            color: rgba(0,0,0,0.6);
-            font-style: italic;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
         .timestamp {
             font-size: 11px;
             color: rgba(0,0,0,0.5);
-            margin-top: 5px;
+        }
+
+        .kate-logo {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.3px;
+            animation: subtleGradientShift 4s ease-in-out infinite;
+            opacity: 0.9;
+            text-transform: lowercase;
+            position: relative;
+            text-align: right;
+            line-height: 1.1;
+        }
+
+        .kate-logo::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            animation: underlineGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes subtleGradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes underlineGlow {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scaleX(0.8);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes subtleGradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .navigation {
@@ -280,8 +337,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">2 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -304,8 +361,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Bureau of Meteorology</div>
                         <div class="timestamp">Updated 9:33am</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -328,8 +385,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Live Traffic NSW</div>
                         <div class="timestamp">Updated 2:15pm</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -346,8 +403,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">6 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -364,8 +421,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">8 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -382,8 +439,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">10 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -400,8 +457,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">12 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -418,8 +475,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">14 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -436,8 +493,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">16 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -454,8 +511,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">18 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -472,8 +529,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">20 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -490,8 +547,8 @@
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="kate-signature">— Kate, your local eyes and ears</div>
                         <div class="timestamp">22 hours ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
@@ -499,4 +556,180 @@
                 <div class="news-card card-13">
                     <div class="card-header">
                         <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Old cinema building to b
+                        <h1 class="story-title">Old cinema building to become community arts center</h1>
+                        <div class="story-icon">🎨</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            The old Bankstown Cinema on South Terrace is being converted into a community arts center! Council approved the plans for theater workshops, art classes, and small performances. They're keeping the original Art Deco facade.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 14 -->
+                <div class="news-card card-14">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Local football club needs new junior coaches</h1>
+                        <div class="story-icon">⚽</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Bankstown City Lions FC is looking for junior coaches for the upcoming season. They need coaches for under-10s and under-12s teams. Full training provided and it's a great way to give back to the community while staying active.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+
+                <!-- Story 15 -->
+                <div class="news-card card-15">
+                    <div class="card-header">
+                        <div class="suburb-name">Bankstown</div>
+                        <h1 class="story-title">Night markets returning to Paul Keating Park</h1>
+                        <div class="story-icon">🌙</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Night markets are returning to Paul Keating Park every Friday evening starting next month! Local stallholders, live music, and food from around the world. It was hugely popular last summer and council has expanded the number of stalls.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="kate-signature">— Kate, your local eyes and ears</div>
+                        <div class="timestamp">1 day ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation arrows -->
+            <div class="nav-arrows">
+                <button class="nav-arrow prev" onclick="previousSlide()">‹</button>
+                <button class="nav-arrow next" onclick="nextSlide()">›</button>
+            </div>
+
+            <!-- Navigation dots -->
+            <div class="navigation" id="navigation">
+                <!-- Dots will be generated by JavaScript -->
+            </div>
+
+            <!-- Swipe hint -->
+            <div class="swipe-hint">Swipe</div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 15;
+        let startX = 0;
+        let isDragging = false;
+
+        // Generate navigation dots
+        function generateDots() {
+            const navigation = document.getElementById('navigation');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                navigation.appendChild(dot);
+            }
+        }
+
+        // Update slide position
+        function updateSlide() {
+            const track = document.getElementById('newsTrack');
+            const translateX = -currentSlide * (100 / totalSlides);
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Update navigation dots
+            const dots = document.querySelectorAll('.nav-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlide();
+        }
+
+        // Next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlide();
+        }
+
+        // Previous slide
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        }
+
+        // Touch/Mouse events for swiping
+        const slider = document.getElementById('slider');
+
+        // Mouse events
+        slider.addEventListener('mousedown', handleStart);
+        slider.addEventListener('mousemove', handleMove);
+        slider.addEventListener('mouseup', handleEnd);
+        slider.addEventListener('mouseleave', handleEnd);
+
+        // Touch events
+        slider.addEventListener('touchstart', handleStart);
+        slider.addEventListener('touchmove', handleMove);
+        slider.addEventListener('touchend', handleEnd);
+
+        function handleStart(e) {
+            isDragging = true;
+            startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            slider.style.cursor = 'grabbing';
+        }
+
+        function handleMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+        }
+
+        function handleEnd(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            slider.style.cursor = 'grab';
+            
+            const endX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // Auto-advance slides (optional - currently disabled)
+        // setInterval(nextSlide, 10000); // Auto-advance every 10 seconds
+
+        // Initialize
+        generateDots();
+        updateSlide();
+    </script>
+</body>
+</html>
