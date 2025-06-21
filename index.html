@@ -476,15 +476,9 @@
         
         let startX = 0;
         let startY = 0;
-        let currentX = 0;
-        let currentY = 0;
         let isDragging = false;
-        let isTransitioning = false;
 
         function updateSlider() {
-            if (isTransitioning) return;
-            
-            isTransitioning = true;
             const translateValue = -(currentSlide * (100 / totalSlides));
             track.style.transform = `translateX(${translateValue}%)`;
             
@@ -492,118 +486,60 @@
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
-            
-            // Reset transition flag after animation
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 300);
         }
 
         function nextSlide() {
-            if (isTransitioning) return;
             currentSlide = (currentSlide + 1) % totalSlides;
             updateSlider();
         }
 
         function prevSlide() {
-            if (isTransitioning) return;
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             updateSlider();
         }
 
         function goToSlide(index) {
-            if (isTransitioning || index === currentSlide) return;
+            if (index === currentSlide) return;
             currentSlide = index;
             updateSlider();
         }
 
-        // Touch events for mobile - using passive: false to prevent default
+        // Touch events for mobile
         slider.addEventListener('touchstart', (e) => {
-            if (isTransitioning) return;
-            
             const touch = e.touches[0];
             startX = touch.clientX;
             startY = touch.clientY;
-            isDragging = true;
-            
-            // Disable transition during drag
-            track.style.transition = 'none';
+            isDragging = false;
         }, { passive: true });
 
         slider.addEventListener('touchmove', (e) => {
-            if (!isDragging || isTransitioning) return;
+            if (!startX) return;
             
             const touch = e.touches[0];
-            currentX = touch.clientX;
-            currentY = touch.clientY;
+            const currentX = touch.clientX;
+            const currentY = touch.clientY;
             
             const diffX = Math.abs(currentX - startX);
             const diffY = Math.abs(currentY - startY);
             
-            // Only prevent default if horizontal swipe is dominant
+            // Determine if this is a horizontal swipe
             if (diffX > diffY && diffX > 10) {
+                isDragging = true;
                 e.preventDefault();
             }
         }, { passive: false });
 
         slider.addEventListener('touchend', (e) => {
-            if (!isDragging || isTransitioning) return;
-            
-            // Re-enable transition
-            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            
-            const diffX = startX - currentX;
-            const diffY = Math.abs(startY - currentY);
-            const threshold = 50;
-            
-            // Only trigger slide change if horizontal movement is dominant and exceeds threshold
-            if (Math.abs(diffX) > threshold && Math.abs(diffX) > diffY) {
-                if (diffX > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
+            if (!startX || !isDragging) {
+                startX = 0;
+                startY = 0;
+                isDragging = false;
+                return;
             }
             
-            // Reset states
-            isDragging = false;
-            startX = 0;
-            startY = 0;
-            currentX = 0;
-            currentY = 0;
-        }, { passive: true });
-
-        // Handle touch cancel
-        slider.addEventListener('touchcancel', () => {
-            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            isDragging = false;
-            startX = 0;
-            startY = 0;
-            currentX = 0;
-            currentY = 0;
-        }, { passive: true });
-
-        // Mouse events for desktop
-        slider.addEventListener('mousedown', (e) => {
-            if (isTransitioning) return;
-            
-            startX = e.clientX;
-            isDragging = true;
-            track.style.transition = 'none';
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging || isTransitioning) return;
-            currentX = e.clientX;
-        });
-
-        document.addEventListener('mouseup', (e) => {
-            if (!isDragging || isTransitioning) return;
-            
-            track.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            
-            const diffX = startX - currentX;
+            const touch = e.changedTouches[0];
+            const endX = touch.clientX;
+            const diffX = startX - endX;
             const threshold = 50;
             
             if (Math.abs(diffX) > threshold) {
@@ -614,10 +550,58 @@
                 }
             }
             
-            // Reset states
-            isDragging = false;
+            // Reset
             startX = 0;
-            currentX = 0;
+            startY = 0;
+            isDragging = false;
+        }, { passive: true });
+
+        // Prevent stuck state on touch cancel
+        slider.addEventListener('touchcancel', () => {
+            startX = 0;
+            startY = 0;
+            isDragging = false;
+        }, { passive: true });
+
+        // Mouse events for desktop
+        let mouseStartX = 0;
+        let mouseIsDragging = false;
+
+        slider.addEventListener('mousedown', (e) => {
+            mouseStartX = e.clientX;
+            mouseIsDragging = false;
+            e.preventDefault();
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!mouseStartX) return;
+            
+            const diffX = Math.abs(e.clientX - mouseStartX);
+            if (diffX > 10) {
+                mouseIsDragging = true;
+            }
+        });
+
+        slider.addEventListener('mouseup', (e) => {
+            if (!mouseStartX || !mouseIsDragging) {
+                mouseStartX = 0;
+                mouseIsDragging = false;
+                return;
+            }
+            
+            const diffX = mouseStartX - e.clientX;
+            const threshold = 50;
+            
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            mouseStartX = 0;
+            mouseIsDragging = false;
         });
 
         // Keyboard navigation
