@@ -41,7 +41,11 @@
             overflow: hidden;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            touch-action: pan-y pinch-zoom;
+            cursor: grab;
+        }
+
+        .news-slider:active {
+            cursor: grabbing;
         }
 
         .news-track {
@@ -156,6 +160,40 @@
             transform: scale(1.2);
         }
 
+        .nav-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .nav-arrow.prev {
+            left: 20px;
+        }
+
+        .nav-arrow.next {
+            right: 20px;
+        }
+
         .swipe-hint {
             position: absolute;
             top: 50%;
@@ -182,12 +220,16 @@
             .story-text {
                 font-size: 15px;
             }
+
+            .nav-arrows {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="news-slider">
+        <div class="news-slider" id="slider">
             <div class="news-track" id="newsTrack">
                 <!-- Story 1 -->
                 <div class="news-card card-1">
@@ -197,7 +239,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Honestly, it's been a nightmare getting through Smith Street today. A massive water main burst early this morning has turned the usual morning commute into a proper headache. The road's completely flooded between Canterbury Road and Chapel Street, and Sydney Water crews are working flat out to fix it. They're saying it could take until tomorrow to get everything back to normal. If you're heading through Bankstown today, definitely take the long way around via Restwell Street.
+                            Massive water main burst on Smith Street this morning has flooded the road between Canterbury Road and Chapel Street. Sydney Water crews are working to fix it but it could take until tomorrow. Avoid the area and take Restwell Street instead.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -214,7 +256,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            The kids are going to love this! After months of construction noise and dust, the brand new playground at Paul Keating Park is finally open. I took a walk through this morning and it looks fantastic - they've got these amazing climbing frames, new swings, and even a little water play area. Council's done a really good job with this one. The old playground was getting pretty tired, so it's great to see families already making the most of the new space. Perfect timing for the school holidays too.
+                            The new playground at Paul Keating Park is finally open! It looks fantastic with amazing climbing frames, new swings, and a water play area. Council did a great job and families are already enjoying it. Perfect timing for school holidays.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -231,7 +273,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Job hunters, this one's for you! Bankstown Sports Club is hosting a massive job fair next Thursday from 10am to 4pm. I've heard there'll be over 30 local employers there, including some big names like Woolworths, Bunnings, and a bunch of healthcare providers. It's completely free to attend and they're looking for everything from part-time retail to full-time trades. Worth checking out if you're on the hunt for work or just want to see what's out there. No need to book, just rock up.
+                            Bankstown Sports Club is hosting a massive job fair next Thursday, 10am to 4pm. Over 30 local employers including Woolworths, Bunnings, and healthcare providers will be there. It's free to attend and they're looking for everything from retail to trades. Just rock up!
                         </p>
                     </div>
                     <div class="story-meta">
@@ -248,7 +290,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            We've got bragging rights now! Little Bird Café on North Terrace just won the best coffee award for the whole Canterbury-Bankstown area. I'm not surprised - their flat whites are seriously good, and the owner Maria always remembers exactly how you like your coffee. It's one of those proper local gems that makes you feel like you're part of the community. They're celebrating with 20% off all coffee this week, so it's the perfect excuse to pop in and try what all the fuss is about.
+                            Little Bird Café on North Terrace just won best coffee in Canterbury-Bankstown! Their flat whites are seriously good and owner Maria always remembers your order. They're celebrating with 20% off all coffee this week - perfect excuse to visit this local gem.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -265,7 +307,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Heads up commuters - there are some bus route changes coming our way from next month. The 901 route is getting extended to include stops at the new shopping development, which is actually pretty handy. But they're also reducing some evening services on the 900 route, which is a bit annoying if you rely on it for late shifts. Transport NSW says it's all about "optimizing services," but honestly, I think they just want to save money. Check their website for the full details if you're a regular bus user.
+                            Bus route changes coming next month! The 901 route extends to include new shopping development stops, but evening services on the 900 route are being reduced. Transport NSW calls it "optimizing services" but check their website for full details if you're a regular user.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -282,7 +324,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Here's something lovely - the Bankstown Community Garden is looking for more volunteers to help with their weekend working bees. They've got this brilliant setup behind the library where locals can grow their own veggies and flowers. It's such a nice way to meet neighbors and get your hands dirty in a good way. They meet every Saturday morning from 9am, and they provide all the tools and morning tea. No gardening experience needed - just enthusiasm and maybe a sun hat!
+                            Bankstown Community Garden needs weekend volunteers! There's a brilliant setup behind the library where locals grow veggies and flowers. They meet every Saturday from 9am, providing tools and morning tea. No experience needed - just enthusiasm and a sun hat!
                         </p>
                     </div>
                     <div class="story-meta">
@@ -299,7 +341,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Finally! We've got a new medical center opening on Chapel Street next to the pharmacy. It's been in the works for ages, but they're officially taking bookings now. They've got bulk-billing GPs, a nurse practitioner, and even a mental health counselor on staff. The building looks really modern and accessible too, which is great for older residents. Dr. Amanda Chen from the old practice on Rickard Road is moving over there, so if you're one of her patients, you'll know where to find her.
+                            New medical center opens on Chapel Street next to the pharmacy! They're taking bookings now with bulk-billing GPs, a nurse practitioner, and mental health counselor. The building is modern and accessible. Dr. Amanda Chen moved there from Rickard Road.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -316,7 +358,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Good news for your wallet, but probably not for long - three of the parking meters on Marion Street are completely broken. I noticed them this morning when I was getting my car serviced. The screens are just blank and they're not taking coins or cards. Council's put up temporary signs saying "meter out of order" but no word on when they'll be fixed. Enjoy the free parking while it lasts, but don't be surprised if you come back to find shiny new meters in their place soon.
+                            Three parking meters on Marion Street are completely broken - screens blank, not taking coins or cards. Council has temporary "meter out of order" signs but no word on repairs. Enjoy the free parking while it lasts!
                         </p>
                     </div>
                     <div class="story-meta">
@@ -333,7 +375,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            So proud of our local kids! Bankstown High School's drama club just won first place at the regional schools competition with their production of "The Tempest." I heard they beat 15 other schools, including some pretty fancy private ones. The performance was apparently incredible - these kids have been rehearsing for months. They're now heading to the state finals in July. It's so good to see young people in Bankstown getting recognition for their creativity and hard work. The whole community should be cheering them on.
+                            Bankstown High School's drama club won first place at regionals with "The Tempest," beating 15 other schools including fancy private ones! These kids rehearsed for months and now they're heading to state finals in July. The whole community should be proud.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -350,7 +392,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            The Saturday markets at Bankstown Park are getting a serious upgrade! From this weekend, they're adding a whole row of food trucks alongside the usual fruit and veg stalls. I've heard there's going to be everything from Korean BBQ to gourmet burgers. The market organizers say they want to make it more of a family destination, not just a quick grocery run. With the new playground nearby, it could actually become a proper weekend hangout spot. About time too - the markets have been pretty quiet lately.
+                            Saturday markets at Bankstown Park are getting food trucks! From this weekend there's everything from Korean BBQ to gourmet burgers alongside the usual stalls. With the new playground nearby, it could become a proper weekend family hangout spot.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -367,7 +409,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Tax time is coming up fast, and Bankstown Library is offering free tax help sessions every Wednesday in June. It's run by qualified accountants who volunteer their time to help people with basic tax returns. You need to book ahead though - apparently last year they were booked out within days. It's perfect if you've got a straightforward tax situation but just need someone to walk you through the online process. Way better than paying $200 to an accountant for something you can probably do yourself with a bit of guidance.
+                            Bankstown Library offers free tax help sessions every Wednesday in June. Qualified accountants volunteer to help with basic returns. Book ahead - last year they were fully booked within days. Perfect for straightforward situations needing guidance through the online process.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -384,7 +426,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Remember the old Bankstown Cinema that's been empty for years? Well, it's getting a new lease on life as a community arts center! Council just announced they've secured funding to convert it into studios, a small theater, and exhibition space. The original art deco facade will be preserved, which is fantastic - it's such a beautiful building. They're aiming to have it open by next year. It's exactly what Bankstown needs - a proper cultural hub where local artists can showcase their work and run workshops.
+                            The old Bankstown Cinema is becoming a community arts center! Council secured funding to convert it into studios, a small theater, and exhibition space. The beautiful art deco facade will be preserved. Opens next year - exactly what Bankstown needs.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -401,7 +443,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Yikes! That new speed camera on Canterbury Road has been busy - it caught over 200 speeding drivers in its first week alone. I guess people haven't quite adjusted to the new 40km/h school zone limit yet. The fines are pretty hefty too, starting at $130 for just 10km/h over the limit. Look, I get that everyone's in a rush, but with three schools nearby, it makes sense to slow down. Word of advice: stick to 40 through there, especially during school hours. Your wallet will thank you.
+                            New speed camera on Canterbury Road caught over 200 drivers in its first week! People haven't adjusted to the 40km/h school zone limit yet. Fines start at $130 for just 10km/h over. Stick to 40 through there, especially during school hours.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -418,7 +460,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            It's the end of an era - Bankstown Swim School is closing its doors after 25 years. Rising rent and pool maintenance costs have made it impossible for the family-run business to continue. So many local kids learned to swim there, including my nephew. The owners, John and Sue, are absolutely heartbroken but say they just can't make the numbers work anymore. They're helping families find alternative swim schools in the area, but it won't be the same. Another piece of local history gone.
+                            Bankstown Swim School is closing after 25 years. Rising rent and pool maintenance costs made it impossible to continue. So many local kids learned there. Owners John and Sue are heartbroken but helping families find alternative schools. Another piece of local history gone.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -435,7 +477,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Great news for cyclists and walkers! Council is finally installing a proper bike path along the Georges River from Bankstown to Milperra. It's been talked about for years, but construction is actually starting next month. The path will be separated from the main walkway, which should make it safer for everyone. It's part of a bigger plan to connect all the river paths in the area. Once it's done, you'll be able to cycle or walk along the water for kilometers without dodging cars. Can't wait to see it finished!
+                            Council is installing a proper bike path along Georges River from Bankstown to Milperra! Construction starts next month. The path will be separated from the main walkway for safety. Once finished, you'll be able to cycle for kilometers without dodging cars.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -443,6 +485,14 @@
                         <div class="timestamp">1 day ago</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Navigation arrows for desktop -->
+            <div class="nav-arrows">
+                <button class="nav-arrow prev" id="prevBtn">‹</button>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-arrow next" id="nextBtn">›</button>
             </div>
 
             <div class="navigation">
@@ -472,11 +522,9 @@
         const totalSlides = 15;
         const track = document.getElementById('newsTrack');
         const dots = document.querySelectorAll('.nav-dot');
-        const slider = document.querySelector('.news-slider');
-        
-        // Simple touch tracking
-        let touchStartX = null;
-        let touchStartY = null;
+        const slider = document.getElementById('slider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
         function updateSlider() {
             const translateValue = -(currentSlide * (100 / totalSlides));
@@ -499,12 +547,18 @@
         }
 
         function goToSlide(index) {
-            if (index === currentSlide) return;
             currentSlide = index;
             updateSlider();
         }
 
-        // Simplified touch handling - more reliable
+        // Button controls
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Touch events for mobile
+        let touchStartX = null;
+        let touchStartY = null;
+
         slider.addEventListener('touchstart', function(e) {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
@@ -521,50 +575,51 @@
             let diffX = touchStartX - touchEndX;
             let diffY = Math.abs(touchStartY - touchEndY);
             
-            // Only trigger if horizontal swipe is significant and more than vertical movement
             if (Math.abs(diffX) > 50 && Math.abs(diffX) > diffY) {
                 if (diffX > 0) {
-                    // Swiped left - go to next slide
                     nextSlide();
                 } else {
-                    // Swiped right - go to previous slide
                     prevSlide();
                 }
             }
             
-            // Reset values
             touchStartX = null;
             touchStartY = null;
         });
 
-        // Reset on touch cancel
-        slider.addEventListener('touchcancel', function() {
-            touchStartX = null;
-            touchStartY = null;
-        });
-
-        // Mouse events for desktop
+        // Mouse drag for desktop
         let mouseStartX = null;
+        let isDragging = false;
 
         slider.addEventListener('mousedown', function(e) {
             mouseStartX = e.clientX;
+            isDragging = false;
             e.preventDefault();
         });
 
-        document.addEventListener('mouseup', function(e) {
+        slider.addEventListener('mousemove', function(e) {
+            if (mouseStartX !== null) {
+                isDragging = true;
+            }
+        });
+
+        slider.addEventListener('mouseup', function(e) {
             if (mouseStartX === null) return;
             
-            let diffX = mouseStartX - e.clientX;
-            
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
+            if (isDragging) {
+                let diffX = mouseStartX - e.clientX;
+                
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
                 }
             }
             
             mouseStartX = null;
+            isDragging = false;
         });
 
         // Keyboard navigation
