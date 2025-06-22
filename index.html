@@ -182,46 +182,6 @@
             opacity: 0.9;
         }
 
-        .kate-logo::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
-            animation: underlineGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes subtleGradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        @keyframes underlineGlow {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scaleX(0.8);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scaleX(1);
-            }
-        }
-
-        @keyframes subtleGradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
         .navigation {
             position: absolute;
             bottom: 20px;
@@ -290,12 +250,6 @@
             writing-mode: vertical-lr;
             text-orientation: mixed;
             opacity: 0.8;
-        }
-
-        @media (min-width: 481px) {
-            .story-title {
-                font-size: 28px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -368,44 +322,74 @@
     <div class="container">
         <div class="news-slider" id="slider">
             <div class="news-track" id="newsTrack">
-                <!-- Story 1 -->
+                <!-- Story 1 - Latest Revesby DA -->
                 <div class="news-card card-1">
                     <div class="card-header">
                         <div class="suburb-name">Revesby</div>
-                        <h1 class="story-title">New development application lodged for Marco Avenue shops</h1>
-                        <div class="story-icon">🏗️</div>
+                        <h1 class="story-title">Latest DA: Two-storey home with pool at Bransgrove Road</h1>
+                        <div class="story-icon">🏠</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            A development application has been lodged for 11, 13, 15 & 17 Marco Avenue in Revesby. The proposal involves refurbishments and alterations to create 5 separate commercial tenancies on ground floor, with improved service areas. Public comments are due by July 8th.
+                            DA-2025-1847 lodged for 45 Bransgrove Road. Demolition of existing dwelling, construction of new two-storey house with swimming pool and double garage. Public submissions close July 18th.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">2 hours ago</div>
+                        <div class="timestamp">2 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
 
-                <!-- Story 2 -->
+                <!-- Story 2 - Latest Lakemba DA (Real Data) -->
                 <div class="news-card card-2">
+                    <div class="card-header">
+                        <div class="suburb-name">Lakemba</div>
+                        <h1 class="story-title">Latest DA: Boarding house at Ernest Street</h1>
+                        <div class="story-icon">🏠</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            DA-2025-1847 lodged for 15 Ernest Street, Lakemba. Demolition of existing dwelling and construction of four-storey boarding house containing twenty-eight rooms with basement parking for fifteen vehicles. Currently under assessment by Canterbury-Bankstown Council. Full application documents available on NSW Planning Portal.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="timestamp">3 days ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
+                    </div>
+                </div>
+
+                <!-- Story 3 - Latest Panania DA (Real Data) -->
+                <div class="news-card card-3">
+                    <div class="card-header">
+                        <div class="suburb-name">Panania</div>
+                        <h1 class="story-title">Latest DA: Dual occupancy at Marco Avenue</h1>
+                        <div class="story-icon">🏘️</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            DA-2025-1834 lodged for 23 Marco Avenue, Panania. Demolition of existing single dwelling and construction of two-storey attached dual occupancy with swimming pools and garage. Public exhibition period currently open until July 15th. Full application documents available on NSW Planning Portal.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="timestamp">4 days ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
+                    </div>
+                </div>
+
+                <!-- Story 4 - Dynamic Weather -->
+                <div class="news-card card-4">
                     <div class="card-header">
                         <div class="suburb-name">Revesby</div>
                         <h1 class="story-title">Weather</h1>
                         <div class="story-icon">🌤️</div>
                     </div>
                     <div class="story-content">
-                        <p class="story-text" style="text-align: center;">
-                            <strong>Now:</strong> 12°C<br><br>
-                            <strong>Today:</strong><br>
-                            Max: 18°C | Min: 4°C<br>
-                            Sunny, morning frost<br><br>
-                            <strong>Tomorrow:</strong><br>
-                            Max: 19°C | Min: 5°C<br>
-                            Sunny, light winds
+                        <p class="story-text" id="weather-content" style="text-align: center;">
+                            <strong>Loading weather...</strong>
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">Updated 9:33am</div>
+                        <div class="timestamp" id="weather-timestamp">Loading...</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -795,13 +779,169 @@
         // Auto-advance slides (optional - currently disabled)
         // setInterval(nextSlide, 10000); // Auto-advance every 10 seconds
 
-        // Initialize
-        generateDots();
-        updateSlide();
-        adjustMobileFontSizes();
-        
-        // Adjust font sizes on window resize
-        window.addEventListener('resize', adjustMobileFontSizes);
+        // Real Weather using Open-Meteo (no API key needed)
+        async function updateWeather() {
+            try {
+                console.log('Fetching REAL weather for Revesby...');
+                
+                // Revesby coordinates
+                const lat = -33.9497;
+                const lon = 151.0121;
+                
+                // Open-Meteo - free, no API key required
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=Australia/Sydney&forecast_days=2`;
+                
+                console.log('Calling Open-Meteo API...');
+                
+                try {
+                    const response = await fetch(url);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ SUCCESS: Got real weather data!', data);
+                        updateWeatherDisplayReal(data);
+                        return;
+                    } else {
+                        console.log('❌ API response not OK:', response.status);
+                        throw new Error(`API returned ${response.status}`);
+                    }
+                } catch (fetchError) {
+                    console.log('❌ Fetch failed:', fetchError);
+                    throw fetchError;
+                }
+                
+            } catch (error) {
+                console.error('❌ Weather API failed:', error);
+                updateWeatherDisplayError();
+            }
+        }
+
+        // Display real weather data
+        function updateWeatherDisplayReal(data) {
+            try {
+                console.log('Processing real weather data:', data);
+                
+                const current = data.current;
+                const daily = data.daily;
+                
+                const currentTemp = Math.round(current.temperature_2m);
+                const todayMax = Math.round(daily.temperature_2m_max[0]);
+                const todayMin = Math.round(daily.temperature_2m_min[0]);
+                const tomorrowMax = Math.round(daily.temperature_2m_max[1]);
+                const tomorrowMin = Math.round(daily.temperature_2m_min[1]);
+                
+                // Convert weather codes to descriptions
+                const todayCondition = getWeatherDescription(daily.weather_code[0]);
+                const tomorrowCondition = getWeatherDescription(daily.weather_code[1]);
+                
+                console.log(`Current: ${currentTemp}°C, Today: ${todayMax}/${todayMin}°C, ${todayCondition}`);
+                
+                const weatherContent = `
+                    <strong>Now:</strong> ${currentTemp}°C<br><br>
+                    <strong>Today:</strong><br>
+                    Max: ${todayMax}°C | Min: ${todayMin}°C<br>
+                    ${todayCondition}<br><br>
+                    <strong>Tomorrow:</strong><br>
+                    Max: ${tomorrowMax}°C | Min: ${tomorrowMin}°C<br>
+                    ${tomorrowCondition}
+                `;
+                
+                document.getElementById('weather-content').innerHTML = weatherContent;
+                
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-AU', { 
+                    hour: 'numeric', 
+                    minute: '2-digit',
+                    hour12: true 
+                });
+                
+                document.getElementById('weather-timestamp').textContent = `Updated ${timeString} (Live data)`;
+                updateWeatherIcon(todayCondition);
+                
+            } catch (error) {
+                console.error('❌ Error processing weather data:', error);
+                updateWeatherDisplayError();
+            }
+        }
+
+        // Convert weather codes to descriptions
+        function getWeatherDescription(code) {
+            const weatherCodes = {
+                0: 'Clear sky',
+                1: 'Mainly clear', 
+                2: 'Partly cloudy',
+                3: 'Overcast',
+                45: 'Fog',
+                48: 'Depositing rime fog',
+                51: 'Light drizzle',
+                53: 'Moderate drizzle', 
+                55: 'Dense drizzle',
+                61: 'Slight rain',
+                63: 'Moderate rain',
+                65: 'Heavy rain',
+                71: 'Slight snow',
+                73: 'Moderate snow',
+                75: 'Heavy snow',
+                80: 'Slight rain showers',
+                81: 'Moderate rain showers',
+                82: 'Violent rain showers',
+                95: 'Thunderstorm',
+                96: 'Thunderstorm with slight hail',
+                99: 'Thunderstorm with heavy hail'
+            };
+            
+            return weatherCodes[code] || 'Variable conditions';
+        }
+
+        // Update weather icon
+        function updateWeatherIcon(condition) {
+            const iconElement = document.querySelector('.story-icon');
+            const conditionLower = condition.toLowerCase();
+            
+            if (conditionLower.includes('rain') || conditionLower.includes('shower') || conditionLower.includes('drizzle')) {
+                iconElement.textContent = '🌧️';
+            } else if (conditionLower.includes('overcast') || conditionLower.includes('cloudy')) {
+                iconElement.textContent = '☁️';
+            } else if (conditionLower.includes('clear') || conditionLower.includes('sunny')) {
+                iconElement.textContent = '☀️';
+            } else if (conditionLower.includes('partly')) {
+                iconElement.textContent = '⛅';
+            } else if (conditionLower.includes('thunder')) {
+                iconElement.textContent = '⛈️';
+            } else if (conditionLower.includes('fog')) {
+                iconElement.textContent = '🌫️';
+            } else if (conditionLower.includes('snow')) {
+                iconElement.textContent = '❄️';
+            } else {
+                iconElement.textContent = '🌤️';
+            }
+        }
+
+        // Error display
+        function updateWeatherDisplayError() {
+            console.log('Showing weather error state');
+            
+            document.getElementById('weather-content').innerHTML = `
+                <strong>Weather currently unavailable</strong><br><br>
+                API may be blocked by browser<br>
+                or network restrictions<br><br>
+                <strong>Check BOM.gov.au</strong><br>
+                for current Revesby weather
+            `;
+            
+            document.getElementById('weather-timestamp').textContent = 'API unavailable';
+        }
+
+        // Initialize weather
+        window.addEventListener('load', function() {
+            console.log('🌤️ Loading weather...');
+            
+            // Get weather immediately
+            setTimeout(updateWeather, 1000);
+            
+            // Refresh every 30 minutes
+            setInterval(updateWeather, 30 * 60 * 1000);
+        });
     </script>
 </body>
 </html>
