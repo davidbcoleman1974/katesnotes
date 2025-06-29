@@ -52,11 +52,11 @@
             display: flex;
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             height: 100%;
-            width: 1500%; /* 15 slides * 100% */
+            width: 1700%; /* 17 slides * 100% */
         }
 
         .news-card {
-            min-width: 6.666%; /* 100% / 15 slides */
+            min-width: 5.882%; /* 100% / 17 slides */
             height: 100%;
             padding: 30px;
             display: flex;
@@ -81,6 +81,8 @@
         .card-13 { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
         .card-14 { background: linear-gradient(135deg, #cfd9df, #e2ebf0); }
         .card-15 { background: linear-gradient(135deg, #ffeaa7, #fab1a0); }
+        .card-16 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .card-17 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
 
         .story-icon {
             font-size: 24px;
@@ -97,25 +99,6 @@
                 0 2px 8px rgba(0,0,0,0.3),
                 inset 0 1px 0 rgba(255,255,255,0.1);
             transition: all 0.3s ease;
-        }
-
-        .story-icon:hover {
-            transform: translateY(-1px);
-            box-shadow: 
-                0 3px 12px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-        }
-
-        .story-icon::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
-            border-radius: 50%;
-            z-index: -1;
         }
 
         .card-header {
@@ -239,91 +222,37 @@
         .nav-arrow.next {
             right: 20px;
         }
-
-        .swipe-hint {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
-            opacity: 0.8;
-        }
-
-        @media (max-width: 480px) {
-            .news-slider {
-                max-width: 100%;
-                height: 100vh;
-                border-radius: 0;
-            }
-            
-            .news-card {
-                padding: 20px;
-            }
-            
-            .card-header {
-                margin-bottom: 15px;
-            }
-            
-            .suburb-name {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-            
-            .story-title {
-                font-size: 30px;
-                margin-bottom: 10px;
-                line-height: 1.1;
-            }
-            
-            .story-icon {
-                font-size: 48px;
-                padding: 15px;
-                margin: 10px 0;
-            }
-            
-            .story-content {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-            
-            .story-text {
-                font-size: 23px !important;
-                line-height: 1.4 !important;
-                font-weight: 500;
-                margin-bottom: 15px;
-            }
-            
-            .story-meta {
-                padding-top: 10px;
-                margin-top: auto;
-            }
-            
-            .timestamp {
-                font-size: 10px;
-            }
-            
-            .kate-logo {
-                font-size: 12px;
-                padding: 1px 4px;
-            }
-
-            .nav-arrows {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="news-slider" id="slider">
             <div class="news-track" id="newsTrack">
-                <!-- Story 1 - Latest Revesby DA -->
+                <!-- Story 1 - Weather -->
                 <div class="news-card card-1">
+                    <div class="card-header">
+                        <div class="suburb-name">Revesby</div>
+                        <h1 class="story-title">Weather</h1>
+                        <div class="story-icon">🌤️</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text" style="text-align: center;">
+                            <strong>Now:</strong> 15°C<br><br>
+                            <strong>Today:</strong><br>
+                            Max: 17°C | Min: 7°C<br><br>
+                            <strong>Tomorrow:</strong><br>
+                            Max: 15°C | Min: 6°C<br><br>
+                            Perfect winter weather!
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="timestamp">Just updated</div>
+                        <div class="kate-logo">kate's<br>notes</div>
+                    </div>
+                </div>
+
+                <!-- Story 2 - Latest Revesby DA -->
+                <div class="news-card card-2">
                     <div class="card-header">
                         <div class="suburb-name">Revesby</div>
                         <h1 class="story-title">Latest DA: Two-storey home with pool at Bransgrove Road</h1>
@@ -331,7 +260,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            DA-2025-1847 lodged for 45 Bransgrove Road. Demolition of existing dwelling, construction of new two-storey house with swimming pool and double garage. Public submissions close July 18th.
+                            DA-2025-1847 lodged for 45 Bransgrove Road. Demolition of existing dwelling, construction of new two-storey house with swimming pool and double garage. Public submissions close July 18th if you want to have your say.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -340,8 +269,8 @@
                     </div>
                 </div>
 
-                <!-- Story 2 - Latest Lakemba DA (Real Data) -->
-                <div class="news-card card-2">
+                <!-- Story 3 - Latest Lakemba DA (Real Data) -->
+                <div class="news-card card-3">
                     <div class="card-header">
                         <div class="suburb-name">Lakemba</div>
                         <h1 class="story-title">Latest DA: Boarding house at Ernest Street</h1>
@@ -349,7 +278,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            DA-2025-1847 lodged for 15 Ernest Street, Lakemba. Demolition of existing dwelling and construction of four-storey boarding house containing twenty-eight rooms with basement parking for fifteen vehicles. Currently under assessment by Canterbury-Bankstown Council. Full application documents available on NSW Planning Portal.
+                            DA-2025-1847 lodged for 15 Ernest Street, Lakemba. Demolition of existing dwelling and construction of four-storey boarding house containing twenty-eight rooms with basement parking for fifteen vehicles. That's a lot of people in one spot - worth keeping an eye on this one.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -358,8 +287,8 @@
                     </div>
                 </div>
 
-                <!-- Story 3 - Latest Panania DA (Real Data) -->
-                <div class="news-card card-3">
+                <!-- Story 4 - Latest Panania DA (Real Data) -->
+                <div class="news-card card-4">
                     <div class="card-header">
                         <div class="suburb-name">Panania</div>
                         <h1 class="story-title">Latest DA: Dual occupancy at Marco Avenue</h1>
@@ -367,7 +296,7 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            DA-2025-1834 lodged for 23 Marco Avenue, Panania. Demolition of existing single dwelling and construction of two-storey attached dual occupancy with swimming pools and garage. Public exhibition period currently open until July 15th. Full application documents available on NSW Planning Portal.
+                            DA-2025-1834 lodged for 23 Marco Avenue, Panania. Demolition of existing single dwelling and construction of two-storey attached dual occupancy with swimming pools and garage. Public exhibition until July 15th - have a look if it affects you.
                         </p>
                     </div>
                     <div class="story-meta">
@@ -376,26 +305,8 @@
                     </div>
                 </div>
 
-                <!-- Story 4 - Dynamic Weather -->
-                <div class="news-card card-4">
-                    <div class="card-header">
-                        <div class="suburb-name">Revesby</div>
-                        <h1 class="story-title">Weather</h1>
-                        <div class="story-icon">🌤️</div>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text" id="weather-content" style="text-align: center;">
-                            <strong>Loading weather...</strong>
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="timestamp" id="weather-timestamp">Loading...</div>
-                        <div class="kate-logo">kate's<br>notes</div>
-                    </div>
-                </div>
-
-                <!-- Story 3 -->
-                <div class="news-card card-3">
+                <!-- Story 5 -->
+                <div class="news-card card-5">
                     <div class="card-header">
                         <div class="suburb-name">Canterbury-Bankstown</div>
                         <h1 class="story-title">Council sets 2025/26 rates - no special hikes</h1>
@@ -403,47 +314,11 @@
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Your rates are going up but Council promises no new special increases. Minimum residential rate $1,087, waste collection $620 annually. Part of 8-year "harmonisation" between old Canterbury-Bankstown councils. Pensioners get extra $40 rebate.
+                            So rates are going up again (surprise, surprise) but at least Council promises no sneaky extra charges this time. You'll pay minimum $1,087 for rates plus $620 for bins. It's all part of making the old Canterbury and Bankstown areas match up over 8 years. Pensioners get an extra $40 off, which is something I guess.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">3 days ago</div>
-                        <div class="kate-logo">kate's<br>notes</div>
-                    </div>
-                </div>
-
-                <!-- Story 4 -->
-                <div class="news-card card-4">
-                    <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Bankstown Sports Club hosting job fair next week</h1>
-                        <div class="story-icon">💼</div>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            Bankstown Sports Club is hosting a job fair next Thursday, 10am to 4pm. Over 30 local employers including Woolworths, Bunnings, and healthcare providers will be there. It's free to attend and they're looking for everything from retail to trades.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="timestamp">6 hours ago</div>
-                        <div class="kate-logo">kate's<br>notes</div>
-                    </div>
-                </div>
-
-                <!-- Story 5 -->
-                <div class="news-card card-5">
-                    <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Local café wins award for best coffee in Canterbury-Bankstown</h1>
-                        <div class="story-icon">☕</div>
-                    </div>
-                    <div class="story-content">
-                        <p class="story-text">
-                            Little Bird Café on North Terrace just won best coffee in Canterbury-Bankstown! Their flat whites are seriously good and owner Maria always remembers your order. They're celebrating with 20% off all coffee this week.
-                        </p>
-                    </div>
-                    <div class="story-meta">
-                        <div class="timestamp">8 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -451,17 +326,17 @@
                 <!-- Story 6 -->
                 <div class="news-card card-6">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Bus route changes coming to Bankstown next month</h1>
-                        <div class="story-icon">🚌</div>
+                        <div class="suburb-name">Wiley Park</div>
+                        <h1 class="story-title">Council approves Wiley Park recreation upgrades</h1>
+                        <div class="story-icon">🏞️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bus route changes coming next month! The 901 route extends to include new shopping development stops, but evening services on the 900 route are being reduced. Transport NSW calls it "optimizing services" but check their website for details.
+                            Finally! They're actually going to fix up Wiley Park properly. We're getting shaded spots to sit, decent picnic areas, BBQs that hopefully work, and family stuff the kids can actually use. Plus they're doing up that outdoor theatre area - new seats, better lighting, the works. They say they're asking locals what we want. We'll see how much they actually listen.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">10 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -469,17 +344,17 @@
                 <!-- Story 7 -->
                 <div class="news-card card-7">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Community garden project needs volunteers</h1>
-                        <div class="story-icon">🌱</div>
+                        <div class="suburb-name">Chullora</div>
+                        <h1 class="story-title">Council backs new Chullora train station proposal</h1>
+                        <div class="story-icon">🚂</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown Community Garden needs weekend volunteers! There's a brilliant setup behind the library where locals grow veggies and flowers. They meet every Saturday from 9am, providing tools and morning tea. No experience needed.
+                            This would actually be amazing if it happens! Council wrote to the Transport Minister asking for a train station at Chullora. Have you tried getting anywhere from there without a car? It's a nightmare. Would be such a game-changer for everyone out that way. Don't hold your breath though.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">12 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -487,17 +362,17 @@
                 <!-- Story 8 -->
                 <div class="news-card card-8">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">New medical center opens on Chapel Street</h1>
-                        <div class="story-icon">🏥</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Council adopts new Social Justice Charter</h1>
+                        <div class="story-icon">⚖️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            New medical center opens on Chapel Street next to the pharmacy! They're taking bookings now with bulk-billing GPs, a nurse practitioner, and mental health counselor. The building is modern and accessible.
+                            Council's adopted something called a Social Justice Charter. Sounds very official but basically it's about making sure community programs and services are fair for everyone. They're setting up a working group to figure out what to actually do with it. Let's see if anything actually comes of it.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">14 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -505,17 +380,17 @@
                 <!-- Story 9 -->
                 <div class="news-card card-9">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Street parking meters broken on Marion Street</h1>
-                        <div class="story-icon">🅿️</div>
+                        <div class="suburb-name">Canterbury</div>
+                        <h1 class="story-title">Ice skating club gets expanded licence at Phillips Avenue</h1>
+                        <div class="story-icon">⛸️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Three parking meters on Marion Street are completely broken - screens blank, not taking coins or cards. Council has temporary "meter out of order" signs but no word on repairs.
+                            The ice skating club on Phillips Avenue is getting more space, which is nice for them. Council said yes in principle but they have to do the whole public consultation thing first. Always wondered what else they could do with that spot when it's not being used for skating.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">16 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -523,17 +398,17 @@
                 <!-- Story 10 -->
                 <div class="news-card card-10">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Local high school's drama club wins regional competition</h1>
-                        <div class="story-icon">🎭</div>
+                        <div class="suburb-name">Milperra</div>
+                        <h1 class="story-title">Community to name new road at Riverlands development</h1>
+                        <div class="story-icon">🛣️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown High School's drama club won first place at regionals with "The Tempest," beating 15 other schools including fancy private ones! These kids rehearsed for months and now they're heading to state finals in July.
+                            They're asking us to help name a new street at that big Riverlands development in Milperra. You get four options to pick from, which is better than them just deciding for us. Nice to have a say in what our neighbourhood roads are called for once.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">18 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -541,17 +416,17 @@
                 <!-- Story 11 -->
                 <div class="news-card card-11">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Weekend markets expanding to include food trucks</h1>
-                        <div class="story-icon">🍔</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Sports precincts get major upgrade plans</h1>
+                        <div class="story-icon">⚽</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Saturday markets at Bankstown Park are getting food trucks! From this weekend there's everything from Korean BBQ to gourmet burgers alongside the usual stalls. With the new playground nearby, it could become a weekend family hangout.
+                            Good news for anyone who uses Canterbury Park, Croydon Park, Jensen Park or Punchbowl Park! Council's made proper plans to upgrade the sports facilities. About time - some of those places really need work. Now we just have to see if they actually follow through and don't just leave the plans sitting in a drawer somewhere.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">20 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -559,17 +434,17 @@
                 <!-- Story 12 -->
                 <div class="news-card card-12">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Free tax help sessions at the library</h1>
-                        <div class="story-icon">📊</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Council pledges road funding fight</h1>
+                        <div class="story-icon">🛣️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown Library offers free tax help sessions every Wednesday in June. Qualified accountants volunteer to help with basic returns. Book ahead - last year they were fully booked within days.
+                            The Mayor's writing to the Premier basically saying "give us more money to fix our roads." Can't argue with that - have you driven around here lately? Some streets are absolutely shocking. Whether anyone actually listens is another story entirely.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">22 hours ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -577,17 +452,17 @@
                 <!-- Story 13 -->
                 <div class="news-card card-13">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Old cinema building to become community arts center</h1>
-                        <div class="story-icon">🎨</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Major events calendar approved for 2025-2028</h1>
+                        <div class="story-icon">🎪</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            The old Bankstown Cinema on South Terrace is being converted into a community arts center! Council approved the plans for theater workshops, art classes, and small performances. They're keeping the original Art Deco facade.
+                            There's a big events calendar coming for the next few years - festivals, cultural stuff, community events all over the place. They've actually budgeted for it too which makes me think they might be serious about making it happen. Could be fun if they don't mess it up!
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">1 day ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -595,17 +470,17 @@
                 <!-- Story 14 -->
                 <div class="news-card card-14">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Local football club needs new junior coaches</h1>
-                        <div class="story-icon">⚽</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Boxing champion Billy "The Kid" Dib to be honoured</h1>
+                        <div class="story-icon">🥊</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Bankstown City Lions FC is looking for junior coaches for the upcoming season. They need coaches for under-10s and under-12s teams. Full training provided and it's a great way to give back to the community while staying active.
+                            Billy "The Kid" Dib is getting a proper celebration at the Bryan Brown Theatre! Two-time world champion and he's from our area. The event's about mental health and anti-bullying too. Plus they're putting his book "Boys Can Cry" in all our libraries. Pretty cool!
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">1 day ago</div>
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -613,17 +488,53 @@
                 <!-- Story 15 -->
                 <div class="news-card card-15">
                     <div class="card-header">
-                        <div class="suburb-name">Bankstown</div>
-                        <h1 class="story-title">Night markets returning to Paul Keating Park</h1>
-                        <div class="story-icon">🌙</div>
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Council considering heat relief for residents</h1>
+                        <div class="story-icon">🌡️</div>
                     </div>
                     <div class="story-content">
                         <p class="story-text">
-                            Night markets are returning to Paul Keating Park every Friday evening starting next month! Local stallholders, live music, and food from around the world. It was hugely popular last summer and council has expanded the number of stalls.
+                            This is actually brilliant - Council might extend library and pool hours when it's over 30 degrees, plus make pools free on really hot days. With electricity bills through the roof, lots of families can't afford to run the aircon. This could be a real lifesaver for people.
                         </p>
                     </div>
                     <div class="story-meta">
-                        <div class="timestamp">1 day ago</div>
+                        <div class="timestamp">12 days ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
+                    </div>
+                </div>
+
+                <!-- Story 16 -->
+                <div class="news-card card-16">
+                    <div class="card-header">
+                        <div class="suburb-name">Padstow</div>
+                        <h1 class="story-title">Council donates $500 to Padstow Community Care winter appeal</h1>
+                        <div class="story-icon">❄️</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Council gave $500 to Padstow Community Care for their winter appeal. Not a huge amount but every bit helps, especially when people are struggling with heating bills. Good on them for supporting local groups doing the hard work in the community.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="timestamp">12 days ago</div>
+                        <div class="kate-logo">kate's<br>notes</div>
+                    </div>
+                </div>
+
+                <!-- Story 17 -->
+                <div class="news-card card-17">
+                    <div class="card-header">
+                        <div class="suburb-name">Canterbury-Bankstown</div>
+                        <h1 class="story-title">Lebanese community leader Elie Akouri receives OAM</h1>
+                        <div class="story-icon">🏅</div>
+                    </div>
+                    <div class="story-content">
+                        <p class="story-text">
+                            Elie Akouri got an Order of Australia Medal in the King's Birthday Honours! He's done amazing work with the Lebanese community here and preserving cultural heritage. Council's sending him a proper congratulations letter. Well deserved recognition for someone who's given so much to our area.
+                        </p>
+                    </div>
+                    <div class="story-meta">
+                        <div class="timestamp">12 days ago</div>
                         <div class="kate-logo">kate's<br>notes</div>
                     </div>
                 </div>
@@ -639,47 +550,14 @@
             <div class="navigation" id="navigation">
                 <!-- Dots will be generated by JavaScript -->
             </div>
-
-            <!-- Swipe hint -->
-            <div class="swipe-hint">Swipe</div>
         </div>
     </div>
 
     <script>
         let currentSlide = 0;
-        const totalSlides = 15;
+        const totalSlides = 17;
         let startX = 0;
         let isDragging = false;
-
-        // Dynamic font sizing for mobile
-        function adjustMobileFontSizes() {
-            const storyTexts = document.querySelectorAll('.story-text');
-            
-            if (window.innerWidth <= 480) {
-                storyTexts.forEach(textElement => {
-                    const wordCount = textElement.textContent.trim().split(/\s+/).length;
-                    let fontSize;
-                    
-                    // Adjust font size based on word count
-                    if (wordCount <= 30) {
-                        fontSize = 28; // Short text - larger font
-                    } else if (wordCount <= 45) {
-                        fontSize = 25; // Medium text
-                    } else if (wordCount <= 60) {
-                        fontSize = 22; // Longer text
-                    } else {
-                        fontSize = 19; // Very long text - smaller font
-                    }
-                    
-                    textElement.style.fontSize = fontSize + 'px';
-                });
-            } else {
-                // Reset to original desktop size
-                storyTexts.forEach(textElement => {
-                    textElement.style.fontSize = '18px';
-                });
-            }
-        }
 
         // Generate navigation dots
         function generateDots() {
@@ -776,171 +654,9 @@
             }
         });
 
-        // Auto-advance slides (optional - currently disabled)
-        // setInterval(nextSlide, 10000); // Auto-advance every 10 seconds
-
-        // Real Weather using Open-Meteo (no API key needed)
-        async function updateWeather() {
-            try {
-                console.log('Fetching REAL weather for Revesby...');
-                
-                // Revesby coordinates
-                const lat = -33.9497;
-                const lon = 151.0121;
-                
-                // Open-Meteo - free, no API key required
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=Australia/Sydney&forecast_days=2`;
-                
-                console.log('Calling Open-Meteo API...');
-                
-                try {
-                    const response = await fetch(url);
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('✅ SUCCESS: Got real weather data!', data);
-                        updateWeatherDisplayReal(data);
-                        return;
-                    } else {
-                        console.log('❌ API response not OK:', response.status);
-                        throw new Error(`API returned ${response.status}`);
-                    }
-                } catch (fetchError) {
-                    console.log('❌ Fetch failed:', fetchError);
-                    throw fetchError;
-                }
-                
-            } catch (error) {
-                console.error('❌ Weather API failed:', error);
-                updateWeatherDisplayError();
-            }
-        }
-
-        // Display real weather data
-        function updateWeatherDisplayReal(data) {
-            try {
-                console.log('Processing real weather data:', data);
-                
-                const current = data.current;
-                const daily = data.daily;
-                
-                const currentTemp = Math.round(current.temperature_2m);
-                const todayMax = Math.round(daily.temperature_2m_max[0]);
-                const todayMin = Math.round(daily.temperature_2m_min[0]);
-                const tomorrowMax = Math.round(daily.temperature_2m_max[1]);
-                const tomorrowMin = Math.round(daily.temperature_2m_min[1]);
-                
-                // Convert weather codes to descriptions
-                const todayCondition = getWeatherDescription(daily.weather_code[0]);
-                const tomorrowCondition = getWeatherDescription(daily.weather_code[1]);
-                
-                console.log(`Current: ${currentTemp}°C, Today: ${todayMax}/${todayMin}°C, ${todayCondition}`);
-                
-                const weatherContent = `
-                    <strong>Now:</strong> ${currentTemp}°C<br><br>
-                    <strong>Today:</strong><br>
-                    Max: ${todayMax}°C | Min: ${todayMin}°C<br>
-                    ${todayCondition}<br><br>
-                    <strong>Tomorrow:</strong><br>
-                    Max: ${tomorrowMax}°C | Min: ${tomorrowMin}°C<br>
-                    ${tomorrowCondition}
-                `;
-                
-                document.getElementById('weather-content').innerHTML = weatherContent;
-                
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('en-AU', { 
-                    hour: 'numeric', 
-                    minute: '2-digit',
-                    hour12: true 
-                });
-                
-                document.getElementById('weather-timestamp').textContent = `Updated ${timeString} (Live data)`;
-                updateWeatherIcon(todayCondition);
-                
-            } catch (error) {
-                console.error('❌ Error processing weather data:', error);
-                updateWeatherDisplayError();
-            }
-        }
-
-        // Convert weather codes to descriptions
-        function getWeatherDescription(code) {
-            const weatherCodes = {
-                0: 'Clear sky',
-                1: 'Mainly clear', 
-                2: 'Partly cloudy',
-                3: 'Overcast',
-                45: 'Fog',
-                48: 'Depositing rime fog',
-                51: 'Light drizzle',
-                53: 'Moderate drizzle', 
-                55: 'Dense drizzle',
-                61: 'Slight rain',
-                63: 'Moderate rain',
-                65: 'Heavy rain',
-                71: 'Slight snow',
-                73: 'Moderate snow',
-                75: 'Heavy snow',
-                80: 'Slight rain showers',
-                81: 'Moderate rain showers',
-                82: 'Violent rain showers',
-                95: 'Thunderstorm',
-                96: 'Thunderstorm with slight hail',
-                99: 'Thunderstorm with heavy hail'
-            };
-            
-            return weatherCodes[code] || 'Variable conditions';
-        }
-
-        // Update weather icon
-        function updateWeatherIcon(condition) {
-            const iconElement = document.querySelector('.story-icon');
-            const conditionLower = condition.toLowerCase();
-            
-            if (conditionLower.includes('rain') || conditionLower.includes('shower') || conditionLower.includes('drizzle')) {
-                iconElement.textContent = '🌧️';
-            } else if (conditionLower.includes('overcast') || conditionLower.includes('cloudy')) {
-                iconElement.textContent = '☁️';
-            } else if (conditionLower.includes('clear') || conditionLower.includes('sunny')) {
-                iconElement.textContent = '☀️';
-            } else if (conditionLower.includes('partly')) {
-                iconElement.textContent = '⛅';
-            } else if (conditionLower.includes('thunder')) {
-                iconElement.textContent = '⛈️';
-            } else if (conditionLower.includes('fog')) {
-                iconElement.textContent = '🌫️';
-            } else if (conditionLower.includes('snow')) {
-                iconElement.textContent = '❄️';
-            } else {
-                iconElement.textContent = '🌤️';
-            }
-        }
-
-        // Error display
-        function updateWeatherDisplayError() {
-            console.log('Showing weather error state');
-            
-            document.getElementById('weather-content').innerHTML = `
-                <strong>Weather currently unavailable</strong><br><br>
-                API may be blocked by browser<br>
-                or network restrictions<br><br>
-                <strong>Check BOM.gov.au</strong><br>
-                for current Revesby weather
-            `;
-            
-            document.getElementById('weather-timestamp').textContent = 'API unavailable';
-        }
-
-        // Initialize weather
+        // Initialize
         window.addEventListener('load', function() {
-            console.log('🌤️ Loading weather...');
-            
-            // Get weather immediately
-            setTimeout(updateWeather, 1000);
-            
-            // Refresh every 30 minutes
-            setInterval(updateWeather, 30 * 60 * 1000);
+            generateDots();
         });
     </script>
 </body>
